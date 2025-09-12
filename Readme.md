@@ -38,3 +38,9 @@ A lightweight, FHIR R4–compliant terminology micro-service—built to India’
 **Department:** All India Institute of Ayurveda (AIIA)  
 **Category:** Software  
 **Theme:** MedTech / BioTech / HealthTech
+
+## Contribution Guide
+- Create a `virtual env`
+- Install the `requirements.txt`
+- First Run the `download_icd11.py` script
+- Secondly, Run `create_database.py` script
