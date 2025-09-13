@@ -56,13 +56,6 @@ if not os.path.exists(DB_PATH):
     conn.commit()
     print("FTS5 index created and populated.")
 
-    # Test query to validate indexing
-    sample_query = "SELECT code, title FROM icd11_fts WHERE icd11_fts MATCH 'qi def*';"
-    sample_results = cursor.execute(sample_query).fetchall()
-    print("\nSample search results for 'qi def*':")
-    for row in sample_results:
-        print(row)
-
     # Close connection
     conn.close()
     print(f"Database created at {DB_PATH}")
