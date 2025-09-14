@@ -42,5 +42,4 @@ A lightweight, FHIR R4–compliant terminology micro-service—built to India’
 ## Contribution Guide
 - Create a `virtual env`
 - Install the `requirements.txt`
-- First Run the `download_icd11.py` script
-- Secondly, Run `create_database.py` script
+- Run `python scripts/init.py`
