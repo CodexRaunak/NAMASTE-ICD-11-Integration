@@ -1,16 +1,16 @@
 import os
 import requests
 
-def download_icd11():
+def download_namaste():
     os.makedirs("data", exist_ok=True)
 
-    ICD11_FILE = {
-        "ICD-11.csv": "1MuNfO5hmaF5v8aSGloMGyLSbjDEjPXqs",
+    NAMASTE_FILES = {
+        "namaste_siddha_morbidity.csv": "1cAZtDQGXj-BnOaw5yPbhJSU7l853n3Bx",
     }
 
     BASE_URL = "https://drive.google.com/uc?export=download&id={file_id}"
 
-    for filename, file_id in ICD11_FILE.items():
+    for filename, file_id in NAMASTE_FILES.items():
         out_path = os.path.join("data", filename)
         if not os.path.exists(out_path):
             url = BASE_URL.format(file_id=file_id)
