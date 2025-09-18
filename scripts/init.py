@@ -25,3 +25,12 @@ index_csv_to_sqlite(
     fts_table_name="nsm_fts",
     fts_columns=["namc_code", "namc_term", "short_definition"]
 )
+
+#Indexing NAMASTE Unani Morbidity
+index_csv_to_sqlite(
+    csv_path="data/namaste_unani_morbidity.csv",
+    db_path=DB_PATH,
+    table_name="num",
+    fts_table_name="num_fts",
+    fts_columns=["numc_code", "short_definition"]
+)
