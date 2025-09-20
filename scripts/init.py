@@ -34,3 +34,22 @@ index_csv_to_sqlite(
     fts_table_name="num_fts",
     fts_columns=["numc_code", "short_definition"]
 )
+
+#Indexing NAMASTE Ayurveda Morbidity
+index_csv_to_sqlite(
+    csv_path="data/namaste_ayurveda_morbidity.csv",
+    db_path=DB_PATH,
+    table_name="nam",
+    fts_table_name="nam_fts",
+    fts_columns=["namc_code","namc_term", "short_definition"]
+)
+
+
+#Indexing Ayurveda Standard terminology
+index_csv_to_sqlite(
+    csv_path="data/ayurveda_standard_terminology.csv",
+    db_path=DB_PATH,
+    table_name="ast",
+    fts_table_name="ast_fts",
+    fts_columns=["code","parent_id","word","short_definition"]
+)
