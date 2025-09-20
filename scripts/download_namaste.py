@@ -6,7 +6,9 @@ def download_namaste():
 
     NAMASTE_FILES = {
         "namaste_siddha_morbidity.csv": "1cAZtDQGXj-BnOaw5yPbhJSU7l853n3Bx",
-         "namaste_unani_morbidity.csv": "1uwvZIjzEPcp2ikuUkEDRgxI0uDWsefSF",
+        "namaste_unani_morbidity.csv": "1uwvZIjzEPcp2ikuUkEDRgxI0uDWsefSF",
+        "namaste_ayurveda_morbidity.csv":"1dXf1U1a4dn3Ctuj1nhlQvVHeYPzIarxB",
+        "ayurveda_standard_terminology.csv": "10q1z9JkSie_Pfr2EzCBDpfF9NkidFzVC"
     }
 
     BASE_URL = "https://drive.google.com/uc?export=download&id={file_id}"
@@ -26,5 +28,4 @@ def download_namaste():
                 print(f"Failed to download {filename}: {e}")
         else:
             print(f"{filename} already exists, skipping.")
-download_namaste()            
 
