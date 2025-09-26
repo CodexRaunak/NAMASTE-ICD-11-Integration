@@ -1,10 +1,4 @@
-name: "[issue]"
-about: Describe  issue for reporting bugs, requesting features, or suggesting improvementstemplate's
-  purpose here.
-title: "[enhancement]"
-labels: bug, documentation, duplicate, enhancement, good first issue, help wanted,
-  invalid, question, wontfix
-assignees: CodexRaunak, Swatitripathi2005, Kevindua26, Suhani95, hiddenhues
+
 
 ---
 
@@ -35,7 +29,7 @@ What actually happens? (For bugs only)
 Add any screenshots, logs, references, or notes.
 
 
-##Contributor guides
-   -Create a virtual env
+## Contributor guides
+  -Create a virtual env
   -Install the requirements.txt
   -Run python scripts/init.py
