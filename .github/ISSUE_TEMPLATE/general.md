@@ -1,12 +1,14 @@
-
-
+---
+name: 📝 General Issue
+about: Use this template for questions, discussions, or any other issue related to the NAMASTE project
+title: "[GENERAL] "
+labels: question
+assignees: ''
 ---
 
 ## Issue Type
-- [ ] 🐞 Bug / Error
-- [ ] ✨ Feature Request
-- [ ] 🔄 Mapping Correction
-- [ ] 📝 Documentation
+- [ ]  Mapping Correction
+- [ ]  Documentation
 - [ ] Other
 
 ## Description
@@ -30,6 +32,6 @@ Add any screenshots, logs, references, or notes.
 
 
 ## Contributor guides
-  -Create a virtual env
-  -Install the requirements.txt
-  -Run python scripts/init.py
+- Create a virtual env
+- Install the requirements.txt
+- Run python scripts/init.py
