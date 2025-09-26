@@ -1,7 +1,5 @@
 
 
----
-
 ## Issue Type
 - [ ] 🐞 Bug / Error
 - [ ] ✨ Feature Request
@@ -30,6 +28,6 @@ Add any screenshots, logs, references, or notes.
 
 
 ## Contributor guides
-  -Create a virtual env
-  -Install the requirements.txt
-  -Run python scripts/init.py
+- Create a virtual env
+- Install the requirements.txt
+- Run python scripts/init.py
