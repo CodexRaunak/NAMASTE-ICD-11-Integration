@@ -51,5 +51,5 @@ index_csv_to_sqlite(
     db_path=DB_PATH,
     table_name="ast",
     fts_table_name="ast_fts",
-    fts_columns=["code","parent_id","word","short_definition"]
+    fts_columns=["code","parent_id","word","short_defination"]
 )
