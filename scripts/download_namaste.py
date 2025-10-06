@@ -7,7 +7,7 @@ def download_namaste():
     NAMASTE_FILES = {
         "namaste_siddha_morbidity.csv": "1cAZtDQGXj-BnOaw5yPbhJSU7l853n3Bx",
         "namaste_unani_morbidity.csv": "1uwvZIjzEPcp2ikuUkEDRgxI0uDWsefSF",
-        "namaste_ayurveda_morbidity.csv":"1dXf1U1a4dn3Ctuj1nhlQvVHeYPzIarxB",
+        "namaste_ayurveda_morbidity.csv":"1WXjXo5PAgwSEYqLvx9w-SW3p3Eg7EBx1",
         "ayurveda_standard_terminology.csv": "10q1z9JkSie_Pfr2EzCBDpfF9NkidFzVC"
     }
 
