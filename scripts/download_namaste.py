@@ -8,7 +8,11 @@ def download_namaste():
         "namaste_siddha_morbidity.csv": "1cAZtDQGXj-BnOaw5yPbhJSU7l853n3Bx",
         "namaste_unani_morbidity.csv": "1uwvZIjzEPcp2ikuUkEDRgxI0uDWsefSF",
         "namaste_ayurveda_morbidity.csv":"1WXjXo5PAgwSEYqLvx9w-SW3p3Eg7EBx1",
-        "ayurveda_standard_terminology.csv": "10q1z9JkSie_Pfr2EzCBDpfF9NkidFzVC"
+        "ayurveda_standard_terminology.csv": "10q1z9JkSie_Pfr2EzCBDpfF9NkidFzVC",
+        "siddha_standard_terminology.csv":"1VRMD1nHG-oNtLEAxr-szy5-swc4AWt_7",
+        "siddha_standard_terminology_index.csv":"1sSAqE6okJNgxB9J2h2VoxC3hOn0hAI0p",
+        "unani_standard_terminology.csv":"15mOnuyYCV9ix9yyxS_xemb7HtpXJKkaa",
+        "unani_standard_terminology_index.csv":"1G1DBBkfSJl-CyEEZHxSQv6yVk9siL"
     }
 
     BASE_URL = "https://drive.google.com/uc?export=download&id={file_id}"
