@@ -1,45 +1,254 @@
-# Problem Statement ID
-25026
+# NAMASTE-ICD-11 Integration API
 
-# Problem Statement Title
-Develop API code to integrate NAMASTE and or the International Classification of Diseases (ICD-11) via the Traditional Medicine Module 2 (TM2) into existing EMR systems that comply with Electronic Health Record (EHR) Standards for India.
+A **FHIR R4-compliant terminology micro-service** that integrates India's NAMASTE (National AYUSH Morbidity & Standardized Terminologies Electronic) codes with WHO's ICD-11 Traditional Medicine Module 2 (TM2), enabling seamless interoperability between traditional and modern healthcare systems.
 
-## Description
+## 🎯 Problem Statement
 
-### Background
-
-India’s Ayush sector is rapidly transitioning from paper-based records to interoperable digital health systems. Central to this transformation are two key coding systems: the National AYUSH Morbidity & Standardized Terminologies Electronic (NAMASTE) codes, which provide over 4,500 standardized terms for Ayurveda, Siddha and Unani disorders, WHO Standardised International Terminologies for Ayurveda and the WHO’s ICD-11, Chapter – 26, Traditional Medicine Module 2 (TM2), which integrates 529 disorder categories and 196 pattern codes into the global ICD framework. Harmonising these vocabularies within Electronic Medical Record (EMR) platforms not only enables accurate clinical documentation and decision support but also ensures compliance with India’s 2016 EHR Standards—mandating FHIR R4 APIs, SNOMED CT and LOINC semantics, ISO 22600 access control, ABHA-linked OAuth 2.0 authentication, and robust audit trails for consent and versioning.
-
-To operationalize this dual-coding approach, EMR vendors must implement a lightweight terminology micro-service that ingests NAMASTE CSV and synchronises with the WHO-11 ICD-API (Including Biomedicine and TM2). Within the EMR user interface, diagnosis entries should support auto-complete widgets that return both NAMASTE and ICD-11 (TM2 and Biomedicine) codes, comply with the Coding rules of ICD-11 framework and store them together in the patient’s Problem List resource. This integration empowers clinicians to combine traditional and biomedical insights, facilitates Ayush insurance claims under global ICD-11 coding rules, and provides the Ministry of Ayush with real-time morbidity analytics aligned with national and international reporting standards.
-
-### Description
-
-Design and prototype an API integration that brings India’s NAMASTE terminologies, WHO Standardised International terminology and the WHO ICD-11 (Traditional Medicine Module 2 (TM2) & Biomedicine) into a FHIR-compliant Electronic Medical Record (EMR) system. Your goal is to enable clinicians to record traditional medicine diagnoses (Ayurveda, Siddha, Unani) using NAMASTE codes, then automatically map them to global ICD-11 (TM2 and Biomedicine) identifiers—supporting dual/double-coding (One code denoting Ayurveda/Siddha/Unani (TM) and another denoting Biomedicine) for interoperability, analytics and insurance claims.
-
-Your deliverable is a lightweight micro-service or FHIR terminology plugin offering:
-- A FHIR compliant resource for NAMASTE codes linking to WHO International Terminologies of Ayurveda, ICD-11 (TM2 and Biomedicine) and compliant with ICD-11 Coding rules.
-- A REST endpoint for auto-complete value-set lookup.
-- A translation operation converting NAMASTE ↔ TM2 codes.
-- An encounter upload endpoint that ingests FHIR Bundles with both code systems.
-- OAuth 2.0–secured access using ABHA tokens and audit-ready metadata.
-
-Teams should demonstrate
-
-1. Ingesting the NAMASTE CSV export and generating FHIR CodeSystem + ConceptMap.
-2. Fetching TM2, Biomedicine updates from the WHO ICD-API and merging into your service.
-3. A simple web or CLI interface to search NAMASTE terms, WHO International Terminologies of Ayurveda, see mapped TM2 codes, and construct a FHIR ProblemList entry.
-4. Version tracking and consent metadata to satisfy India’s 2016 EHR Standards (FHIR R4, ISO 22600, SNOMED-CT/LOINC semantics).
-
-### Expected Solution
-
-A lightweight, FHIR R4–compliant terminology micro-service—built to India’s 2016 EHR Standards—that exposes a NAMASTE CodeSystem, WHO International Terminologies of Ayurveda, an ICD-11 TM2, Biomedicine ConceptMap, an auto-complete value-set lookup endpoint, a NAMASTE↔TM2 translate operation; ICD-11 Biomedicine look up and a secure FHIR Bundle upload interface (for enabling double coding).
-
+**ID:** 25026  
 **Organization:** Ministry of Ayush  
-**Department:** All India Institute of Ayurveda (AIIA)  
-**Category:** Software  
-**Theme:** MedTech / BioTech / HealthTech
+**Department:** All India Institute of Ayurveda (AIIA)
+
+Develop API code to integrate NAMASTE and the International Classification of Diseases (ICD-11) via the Traditional Medicine Module 2 (TM2) into existing EMR systems that comply with Electronic Health Record (EHR) Standards for India.
+
+## 🚀 Key Features
+
+- **468 curated concept mappings** — 218 high-confidence equivalent matches + 250 clinically helpful related associations
+- **FHIR R4 compliant** ConceptMap resources with explicit equivalence flags
+- **Targeted domain coverage** focusing on SR, ED, SM, SK, SN, SP, SL, SS, and EC prefixes in the NAMASTE corpus
+- **FTS5-backed lookups** for fast crosswalk exploration across both terminologies
+- **End-to-end automation** via `scripts/init.py`, exports, and regression tests
+
+## 📊 Mapping Coverage
+
+- **Total mappings:** 468 (218 equivalent, 250 related)
+- **Unique NAMASTE codes represented:** 296
+- **Unique ICD-11 TM2 codes linked:** 437
+- **Top prefixes (by mapping volume):** ED, SM, SK, SN, SP, SR, SS, SL, EC, SQ
+- **Curation philosophy:** Prefer precise 1:1 code & title agreements and limit broader fuzzy expansion to reviewable "related" links
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/CodexRaunak/NAMASTE-ICD-11-Integration.git
+   cd NAMASTE-ICD-11-Integration
+   ```
+
+2. **Create a virtual environment**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the complete setup**
+   ```bash
+   python scripts/init.py
+   ```
+
+   This orchestrator will:
+   - ✅ Download NAMASTE and ICD-11 TM2 datasets
+   - ✅ Create the optimized SQLite database with FTS5 indexes
+   - ✅ Normalize code formatting and spacing
+   - ✅ Generate 468 curated concept mappings (218 equivalent + 250 related)
+   - ✅ Verify the installation and print next steps
+
+## 🧪 Verification & Testing
+
+### Run the complete test suite
+```bash
+python tests/run_tests.py
+```
+
+This validates:
+- Database connectivity, schema integrity, and FTS index availability
+- Concept mapping precision and equivalence tagging
+- FHIR R4 ConceptMap compliance and serialization
+- REST API behaviour, URL encoding, and error handling
+
+### Start the API server
+```bash
+uvicorn app.main:app --reload
+```
+
+Interactive docs: http://localhost:8000/docs
+
+### Export mappings for review
+```bash
+python scripts/export_mappings.py
+```
+
+Generates:
+- `output/namaste_icd11_mappings_[timestamp].csv` — Full export (468 rows as of 2025-10-06)
+- `output/namaste_icd11_mappings_[timestamp]_summary.txt` — Snapshot statistics and prefix breakdown
+- `output/namaste_icd11_sample_[timestamp].csv` — Sample set (up to 10 mappings per NAMASTE prefix)
+
+## 🔗 API Endpoints
+
+### ConceptMap resources
+```http
+GET /ConceptMap                    # List all concept maps
+GET /ConceptMap/{code}             # Get mappings for a specific NAMASTE code
+```
+
+### Example usage
+```bash
+# Fetch mappings for an Ayurvedic vāta pattern
+curl "http://localhost:8000/ConceptMap/SR10%20(AAA-2.1)"
+
+# Fetch mappings for an examination finding
+curl "http://localhost:8000/ConceptMap/ED-6.10"
+```
+
+### FHIR response structure
+```json
+{
+  "resourceType": "ConceptMap",
+  "id": "namaste-icd11-conceptmap",
+  "url": "http://terminology.ayush.gov.in/ConceptMap/namaste-icd11",
+  "version": "1.0.0",
+  "name": "NAMASTE_ICD11_ConceptMap",
+  "title": "NAMASTE to ICD-11 TM2 Concept Map",
+  "status": "active",
+  "group": [
+    {
+      "source": "http://terminology.ayush.gov.in/CodeSystem/namaste",
+      "target": "http://id.who.int/icd/entity",
+      "element": [
+        {
+          "code": "ED-6.10",
+          "target": [
+            {
+              "code": "ED00",
+              "equivalence": "equivalent"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
 ## Contribution Guide
-- Create a `virtual env`
-- Install the `requirements.txt`
+
+- Create a virtual environment
+- Install the dependencies from `requirements.txt`
 - Run `python scripts/init.py`
+
+## 🏗️ Project Architecture
+
+### Directory structure
+```
+NAMASTE-ICD-11-Integration/
+├── app/                    # FastAPI application
+│   ├── main.py             # API entry point
+│   └── conceptmap.py       # FHIR ConceptMap endpoints
+├── data/                   # CSV datasets (auto-downloaded)
+├── db/                     # SQLite database (auto-created)
+├── output/                 # Generated mapping exports
+├── scripts/                # Setup and utility scripts
+├── tests/                  # Test suite
+└── requirements.txt        # Python dependencies
+```
+
+### Database schema
+- **`icd11`** — ICD-11 TM2 codes and titles
+- **`nam`** — NAMASTE Ayurveda morbidity codes
+- **`nsm` / `num` / `ast`** — Additional NAMASTE datasets with FTS mirrors
+- **`concept_map`** — Curated NAMASTE ↔ ICD-11 mappings
+- **`*_fts`** — FTS5 virtual tables supporting indexed lookups
+
+## 🔬 Technical Details
+
+### Mapping strategy
+A five-pass curation workflow prioritizes precision:
+
+1. **Exact code alignment** — Captures identical code pairs between NAMASTE and ICD-11.
+2. **Bracket trimming** — Matches canonical codes inside labels such as `SR11 (AAA-1)`.
+3. **Single-token FTS lookups** — Uses `icd11_fts` for safe English keyword matching on concise terms.
+4. **Exact English title parity** — Links entries that publish identical English titles in both systems.
+5. **Capped partial matches** — Adds a bounded number of related associations for overlapped language without diluting quality.
+
+This produces 218 equivalent links and 250 related associations that remain human-auditable.
+
+### Performance optimizations
+- **FTS5 full-text search** for both NAMASTE and ICD-11 datasets
+- **Code normalization and whitespace cleanup** to keep join keys deterministic
+- **Deduplication guards** so later passes skip previously captured pairs
+- **Automated CSV & summary exports** to streamline governance review cycles
+
+### FHIR compliance
+- Proper ConceptMap scaffolding with `equivalent` and `relatedto` designations
+- URL-safe code handling across REST endpoints
+- JSON serialization aligned with FHIR R4 expectations
+
+## 🎯 Clinical Impact
+
+- **Traditional medicine patterns (SR/SM/SK/SN/SP/SS)** enjoy direct equivalence with their ICD-11 complements where lexical agreement exists.
+- **Examination findings (ED & EC)** surface rich related ICD-11 descriptors to contextualize Ayurvedic observations.
+- **Transparent semantics:** Equivalence vs. related relationships are explicit so downstream systems can apply governance policies.
+
+## 🔧 Advanced Usage
+
+### Custom mapping regeneration
+```bash
+python scripts/create_concept_map.py
+```
+
+### Helpful SQL queries
+```sql
+-- Count mappings by NAMASTE prefix
+SELECT SUBSTR(source_code, 1, 2) AS prefix, COUNT(*)
+FROM concept_map
+GROUP BY prefix
+ORDER BY COUNT(*) DESC;
+
+-- Inspect mappings for a specific code
+SELECT *
+FROM concept_map
+WHERE source_code = 'SR11 (AAA-1)';
+```
+
+### Integration example: EMR lookup
+```python
+import requests
+
+concept_map = requests.get(
+    "http://localhost:8000/ConceptMap/SR10%20(AAA-2.1)"
+).json()
+
+icd11_codes = [
+    target["code"]
+    for group in concept_map["group"]
+    for element in group["element"]
+    for target in element["target"]
+]
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/name`
+3. Implement changes and add tests where relevant
+4. Run `python tests/run_tests.py`
+5. Submit a pull request
+
+## 📄 License
+
+Developed for the Ministry of Ayush, All India Institute of Ayurveda (AIIA) as part of the digital health transformation initiative.
+
+## 🆘 Troubleshooting
+
+### Common issues
+- **Database not found:** Run `python scripts/init.py`
+- **Import errors:** Activate the virtual environment and reinstall requirements
+- **Test failures:** Re-run the initializer to rebuild the SQLite database and refresh mappings
+- **API errors:** Ensure FastAPI and Uvicorn are installed (`pip install fastapi uvicorn`)
+
+### Support
+Consult the test suite, summary exports, and this documentation for guidance when reviewing or extending the mapping set.
