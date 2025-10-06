@@ -51,5 +51,37 @@ index_csv_to_sqlite(
     db_path=DB_PATH,
     table_name="ast",
     fts_table_name="ast_fts",
-    fts_columns=["code","parent_id","word","short_definition"]
+    fts_columns=["code","parent_id","word","short_defination"]
+)
+#indexing  siddha Standard Terminology
+index_csv_to_sqlite(
+    csv_path="data/siddha_standard_terminology.csv",
+    db_path=DB_PATH,
+    table_name="sst",
+    fts_table_name="sst_fts",
+    fts_columns=["code_no.","terminology in the original Language - Siddha Term","Transliteration (Diacritic code)","DESCRIPTION"]
+)
+#indexing  siddha Standard Terminology index 
+index_csv_to_sqlite(
+    csv_path="data/siddha_standard_terminology_index.csv",
+    db_path=DB_PATH,
+    table_name="isst",
+    fts_table_name="isst_fts",
+    fts_columns=["english_term","code_no.","page._no."]
+)
+#indexing  unani Standard Terminology 
+index_csv_to_sqlite(
+    csv_path="data/unani_standard_terminology.csv",
+    db_path=DB_PATH,
+    table_name="ust",
+    fts_table_name="ust_fts",
+    fts_columns=["CODE","TERM","TRANSLITERATION","DESCRIPTION"]
+)
+#indexing  unani Standard Terminology index
+index_csv_to_sqlite(
+    csv_path="data/unani_standard_terminology_index.csv",
+    db_path=DB_PATH,
+    table_name="iust",
+    fts_table_name="iust_fts",
+    fts_columns=[""]
 )
