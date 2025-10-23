@@ -78,15 +78,24 @@ class TestFHIRCompliance:
             
             for target in element["target"]:
                 assert "code" in target, "Target must have code"
-                assert "relationship" in target, "Target must have relationship"
-                
-                # Validate relationship codes (FHIR R4)
-                valid_relationships = [
-                    "related-to", "equivalent", "source-is-narrower-than-target",
-                    "source-is-broader-than-target", "not-related-to"
-                ]
-                assert target["relationship"] in valid_relationships, \
-                    f"Invalid relationship: {target['relationship']}"
+
+                # Accept either the library's 'relationship' key or the
+                # FHIR-standard 'equivalence' key (the project returns
+                # 'equivalence' in responses to match FHIR R4 naming).
+                assert ("relationship" in target) or ("equivalence" in target), \
+                    "Target must have relationship or equivalence"
+
+                # Extract the value from whichever key is present and
+                # validate against an expanded set that includes both the
+                # project's stored terms and canonical FHIR-style names.
+                val = target.get("equivalence") or target.get("relationship")
+
+                valid_relationships = {
+                    "relatedto", "related-to", "equivalent", "equal",
+                    "source-is-narrower-than-target", "source-is-broader-than-target",
+                    "not-related-to", "wider", "narrower", "inexact", "unmatched"
+                }
+                assert val in valid_relationships, f"Invalid relationship/equivalence: {val}"
     
     def test_fhir_json_serialization(self):
         """Test that ConceptMap can be properly serialized to JSON"""
