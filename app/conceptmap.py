@@ -97,10 +97,14 @@ def get_concept_map(source_code: str):
         target_display = fetch_icd11_title(target_code) or f"ICD-11 code {target_code}"
         
         # Create target mapping
+        # The installed FHIR model expects the field name 'relationship' rather
+        # than 'equivalence' (this is a library-level naming). Use the
+        # library field for validation, then post-process the serialized
+        # output to emit the standard FHIR 'equivalence' key downstream.
         target = ConceptMapGroupElementTarget(
             code=target_code,
             display=target_display,
-            relationship="equivalent"  # FHIR R4 uses 'relationship' not 'equivalence'
+            relationship=equivalence
         )
         
         # Create element
@@ -134,5 +138,21 @@ def get_concept_map(source_code: str):
         # Note: No sourceUri/targetUri at top level - they go in the group
         group=[group]
     )
-    
-    return concept_map.dict()
+
+    # Serialize via the FHIR model (validates fields) then convert any
+    # 'relationship' keys emitted by the model into FHIR-standard
+    # 'equivalence' keys for downstream consumers expecting R4 naming.
+    def _replace_relationship_with_equivalence(obj):
+        if isinstance(obj, dict):
+            new = {}
+            for k, v in obj.items():
+                new_key = 'equivalence' if k == 'relationship' else k
+                new[new_key] = _replace_relationship_with_equivalence(v)
+            return new
+        elif isinstance(obj, list):
+            return [_replace_relationship_with_equivalence(i) for i in obj]
+        else:
+            return obj
+
+    serialized = concept_map.dict()
+    return _replace_relationship_with_equivalence(serialized)
